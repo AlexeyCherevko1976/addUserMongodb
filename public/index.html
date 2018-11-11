@@ -56,20 +56,21 @@
                 success: function (user) {
                     var form = document.forms["userForm"];
                     form.elements["id"].value = user._id;
-                    form.elements["name"].value = user.name;
-                    form.elements["age"].value = user.age;
+                    form.elements["login"].value = user.login;
+                    form.elements["password"].value = user.password;
                 }
             });
         }
         // Добавление пользователя
-        function CreateUser(userName, userAge) {
+        function CreateUser(userLogin, userPassword) {
+            console.log(userLogin+' - '+userPassword);
             $.ajax({
                 url: "api/users",
                 contentType: "application/json",
                 method: "POST",
                 data: JSON.stringify({
-                    name: userName,
-                    age: userAge
+                    login: userLogin,
+                    password: userPassword
                 }),
                 success: function (user) {
                     reset();
@@ -78,15 +79,15 @@
             })
         }
         // Изменение пользователя
-        function EditUser(userId, userName, userAge) {
+        function EditUser(userId, userLogin, userPassword) {
             $.ajax({
                 url: "api/users",
                 contentType: "application/json",
                 method: "PUT",
                 data: JSON.stringify({
                     id: userId,
-                    name: userName,
-                    age: userAge
+                    login: userLogin,
+                    password: userPassword
                 }),
                 success: function (user) {
                     reset();
@@ -132,7 +133,7 @@
         // отправка формы
         $("form").submit(function (e) {
             e.preventDefault();
-            //var id = this.elements["id"].value;
+            var id = this.elements["id"].value;
             var login = this.elements["login"].value;
             var password = this.elements["password"].value;
             if (id == 0)

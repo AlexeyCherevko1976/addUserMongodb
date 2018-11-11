@@ -49,7 +49,7 @@ app.get("/api/users/:id", function(req, res){
        
     var id = new objectId(req.params.id);
     mongoClient.connect(url, function(err, client){
-        client.db("usersdb").collection("users").findOne({_id: id}, function(err, user){
+        client.db("users1").collection("users").findOne({_id: id}, function(err, user){
               
             if(err) return res.status(400).send();
               
@@ -63,12 +63,12 @@ app.post("/api/users", jsonParser, function (req, res) {
       
     if(!req.body) return res.sendStatus(400);
       
-    var userName = req.body.name;
-    var userAge = req.body.age;
-    var user = {name: userName, age: userAge};
+    var userLogin = req.body.login;
+    var userPassword = req.body.password;
+    var user = {login: userLogin, password: userPassword, n1:''};
       
     mongoClient.connect(url, function(err, client){
-        client.db("usersdb").collection("users").insertOne(user, function(err, result){
+        client.db("users1").collection("users").insertOne(user, function(err, result){
               
             if(err) return res.status(400).send();
               
@@ -82,7 +82,7 @@ app.delete("/api/users/:id", function(req, res){
        
     var id = new objectId(req.params.id);
     mongoClient.connect(url, function(err, client){
-        client.db("usersdb").collection("users").findOneAndDelete({_id: id}, function(err, result){
+        client.db("users1").collection("users").findOneAndDelete({_id: id}, function(err, result){
               
             if(err) return res.status(400).send();
               
@@ -97,11 +97,11 @@ app.put("/api/users", jsonParser, function(req, res){
        
     if(!req.body) return res.sendStatus(400);
     var id = new objectId(req.body.id);
-    var userName = req.body.name;
-    var userAge = req.body.age;
+    var userLogin = req.body.login;
+    var userPassword = req.body.password;
       
     mongoClient.connect(url, function(err, client){
-        client.db("usersdb").collection("users").findOneAndUpdate({_id: id}, { $set: {age: userAge, name: userName}},
+        client.db("users1").collection("users").findOneAndUpdate({_id: id}, { $set: {login: userLogin, password: userPassword}},
              {returnOriginal: false },function(err, result){
               
             if(err) return res.status(400).send();
