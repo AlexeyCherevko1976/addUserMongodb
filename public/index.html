@@ -8,16 +8,16 @@
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 </head>
 <body>
-    <h2>Список пользователей</h2>
+    <h2>Регистрация</h2>
     <form name="userForm">
         <input type="hidden" name="id" value="0" />
         <div class="form-group">
-            <label for="name">Имя:</label>
-            <input class="form-control" name="name" />
+            <label for="login">Логин:</label>
+            <input class="form-control" name="login" />
         </div>
         <div class="form-group">
-            <label for="age">Возраст:</label>
-            <input class="form-control" name="age" />
+            <label for="password">Пароль:</label>
+            <input class="form-control" name="password" />
         </div>
         <div class="panel-body">
             <button type="submit" class="btn btn-sm btn-primary">Сохранить</button>
@@ -25,7 +25,7 @@
         </div>
     </form>
     <table class="table table-condensed table-striped table-bordered">
-        <thead><tr><th>Id</th><th>Имя</th><th>возраст</th><th></th></tr></thead>
+        <thead><tr><th>Id</th><th>Логин</th><th>Пароль</th><th></th></tr></thead>
         <tbody>
         </tbody>
     </table>
@@ -118,7 +118,7 @@
         // создание строки для таблицы
         var row = function (user) {
             return "<tr data-rowid='" + user._id + "'><td>" + user._id + "</td>" +
-                   "<td>" + user.name + "</td> <td>" + user.age + "</td>" +
+                   "<td>" + user.login + "</td> <td>" + user.password + "</td>" +
                    "<td><a class='editLink' data-id='" + user._id + "'>Изменить</a> | " +
                     "<a class='removeLink' data-id='" + user._id + "'>Удалить</a></td></tr>";
         }
@@ -132,13 +132,13 @@
         // отправка формы
         $("form").submit(function (e) {
             e.preventDefault();
-            var id = this.elements["id"].value;
-            var name = this.elements["name"].value;
-            var age = this.elements["age"].value;
+            //var id = this.elements["id"].value;
+            var login = this.elements["login"].value;
+            var password = this.elements["password"].value;
             if (id == 0)
-                CreateUser(name, age);
+                CreateUser(login, password);
             else
-                EditUser(id, name, age);
+                EditUser(id, login, password);
         });
   
         // нажимаем на ссылку Изменить

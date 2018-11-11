@@ -6,6 +6,29 @@ const objectId = require("mongodb").ObjectID;
 const app = express();
 const jsonParser = bodyParser.json();
 const url = "mongodb://localhost:27017/usersdb";
+
+//const mongoClient = require("mongodb").MongoClient;
+  
+//const url = "mongodb://localhost:27017/";
+
+CreateDB();
+function CreateDB(){
+    mongoClient.connect(url, function(err, client){
+          
+        const db = client.db("users2");
+        const collection = db.collection("users");
+        let user = {login: "login1", password: '123', n1:''};
+        collection.insertOne(user, function(err, result){
+              
+            if(err){ 
+                return console.log(err);
+            }
+            console.log(result.ops);
+            client.close();
+        });
+    });    
+}
+
   
 app.use(express.static(__dirname + "/public"));
 
@@ -16,7 +39,7 @@ app.get("/", function(req, res){
 app.get("/api/users", function(req, res){
        
     mongoClient.connect(url, function(err, client){
-        client.db("usersdb").collection("users").find({}).toArray(function(err, users){
+        client.db("users1").collection("users").find({}).toArray(function(err, users){
             res.send(users)
             client.close();
         });
