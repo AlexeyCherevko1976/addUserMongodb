@@ -26,37 +26,11 @@ const url = "mongodb://localhost:27017/usersdb";
   	return value*value
   }
 
-  function createUserdbM(user){
-
-    mongoClient.connect(url, function(err, client){
-
-        client.db("users1").collection("users").find({}).toArray(function(err, users){             
-            var extract=users.filter(i=>i['login']==user['login']).length;
-            console.log(extract);console.log(!extract);
-            if (!extract){
-                client.db("users1").collection("users").insertOne(user, function(err, result){                  
-                    if(err) return res.status(400).send();
-                    return user;
-                    client.close();
-
-                });                
-            }
-            client.close();
-            //return user;
-        });
-
-    });    
-  }
-
-  function createUserdb(user, callback){
-    
-    
+  function createUserdb(user, callback){      
 
         mongoClient.connect(url, function(err, client){
  
           client.db("users1").collection("users").insertOne(user, function(err, result){                  
-              //if(err) return res.status(400).send();
-              console.log('client.db'); console.log(user); 
               
               callback(user);
               client.close();
@@ -64,9 +38,6 @@ const url = "mongodb://localhost:27017/usersdb";
           });
                 
         });  
-
-  
-//console.log('answer'); console.log(answer);
   }
 
   calc.pow2=pow2;

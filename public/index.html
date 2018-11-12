@@ -63,9 +63,9 @@
         }
         // Добавление пользователя
         function CreateUser(userLogin, userPassword) {
-            console.log(userLogin+' - '+userPassword);
+            
             $.ajax({
-                url: "api/users",
+                url: "createUser",
                 contentType: "application/json",
                 method: "POST",
                 data: JSON.stringify({
@@ -73,8 +73,7 @@
                     password: userPassword
                 }),
                 success: function (user) {
-                    reset(); 
-                    console.log('user'); console.log(user); 
+                    reset();  
                     $("table tbody").append(row(user));
                 }
             })

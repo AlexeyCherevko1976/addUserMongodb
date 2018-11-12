@@ -59,7 +59,7 @@ app.get("/api/users/:id", function(req, res){
     });
 });
   
-app.post("/api/users", jsonParser, function (req, res) {
+app.post("/createUser", jsonParser, function (req, res) {
       
     if(!req.body) return res.sendStatus(400);
       
@@ -67,35 +67,10 @@ app.post("/api/users", jsonParser, function (req, res) {
     var userPassword = req.body.password;
     var user = {login: userLogin, password: userPassword, n1:''};
       
-/*    res.send(calc.createUserdb(user, function(last) {
-  console.log('last'); console.log(last); last
-}));*/
-
     var sendInsert=calc.createUserdb(user, function (last){
-        //console.log('last'); console.log(last);
         res.send(last);
     });
-    //console.log('sendInsert'); console.log(sendInsert); 
 
-    //res.send('sendInsert');
-
-    /*mongoClient.connect(url, function(err, client){
-
-        client.db("users1").collection("users").find({}).toArray(function(err, users){
-            //res.send(users); 
-            var extract=users.filter(i=>i['login']==user['login']).length;
-            console.log(extract);console.log(!extract);
-            if (!extract){
-                client.db("users1").collection("users").insertOne(user, function(err, result){                  
-                    if(err) return res.status(400).send();
-                    res.send(user);
-                    client.close();
-                });                
-            }
-            client.close();
-        });
-
-    });*/
 });
    
 app.delete("/api/users/:id", function(req, res){
