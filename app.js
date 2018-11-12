@@ -71,10 +71,13 @@ app.post("/api/users", jsonParser, function (req, res) {
   console.log('last'); console.log(last); last
 }));*/
 
-    var sendInsert=calc.createUserdb(user);
-    console.log('sendInsert'); console.log(sendInsert); 
+    var sendInsert=calc.createUserdb(user, function (last){
+        //console.log('last'); console.log(last);
+        res.send(last);
+    });
+    //console.log('sendInsert'); console.log(sendInsert); 
 
-    res.send(sendInsert);
+    //res.send('sendInsert');
 
     /*mongoClient.connect(url, function(err, client){
 

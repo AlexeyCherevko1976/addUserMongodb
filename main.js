@@ -48,7 +48,7 @@ const url = "mongodb://localhost:27017/usersdb";
     });    
   }
 
-  function createUserdb(user){
+  function createUserdb(user, callback){
     
     
 
@@ -57,8 +57,8 @@ const url = "mongodb://localhost:27017/usersdb";
           client.db("users1").collection("users").insertOne(user, function(err, result){                  
               //if(err) return res.status(400).send();
               console.log('client.db'); console.log(user); 
-
-              //console.log(user);
+              
+              callback(user);
               client.close();
 
           });
