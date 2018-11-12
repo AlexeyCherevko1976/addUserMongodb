@@ -50,7 +50,7 @@ const url = "mongodb://localhost:27017/usersdb";
 
   function createUserdb(user){
     
-    var promise = new Promise((resolve, reject) => {
+    
 
         mongoClient.connect(url, function(err, client){
  
@@ -58,32 +58,14 @@ const url = "mongodb://localhost:27017/usersdb";
               //if(err) return res.status(400).send();
               console.log('client.db'); console.log(user); 
 
-              resolve(user);
+              //console.log(user);
               client.close();
 
           });
                 
         });  
 
-     });  // let promise
-
-// var answer=[];   
-    promise
-    .then(
-        result => {
-        // первая функция-обработчик - запустится при вызове resolve
-        //console.log('result'); console.log(result); // result - аргумент resolve 
-        //console.log('result'); console.log(result); 
-         var res = JSON.stringify(result);
-      })
-
-/*    .catch(
-      error => {
-        // вторая функция - запустится при вызове reject
-        console.log("Rejected: " + error); // error - аргумент reject
-      }
-    )*/;
-
+  
 //console.log('answer'); console.log(answer);
   }
 
