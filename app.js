@@ -7,9 +7,9 @@ const app = express();
 const jsonParser = bodyParser.json();
 const url = "mongodb://localhost:27017/usersdb";
 
-//const mongoClient = require("mongodb").MongoClient;
-  
-//const url = "mongodb://localhost:27017/";
+var main=require('./main');
+var calc=main.calc;
+console.log(calc.pow2(100));
 
 CreateDB();
 function CreateDB(){
@@ -67,15 +67,32 @@ app.post("/api/users", jsonParser, function (req, res) {
     var userPassword = req.body.password;
     var user = {login: userLogin, password: userPassword, n1:''};
       
-    mongoClient.connect(url, function(err, client){
-        client.db("users1").collection("users").insertOne(user, function(err, result){
-              
-            if(err) return res.status(400).send();
-              
-            res.send(user);
+/*    res.send(calc.createUserdb(user, function(last) {
+  console.log('last'); console.log(last); last
+}));*/
+
+    var sendInsert=calc.createUserdb(user);
+    console.log('sendInsert'); console.log(sendInsert); 
+
+    res.send(sendInsert);
+
+    /*mongoClient.connect(url, function(err, client){
+
+        client.db("users1").collection("users").find({}).toArray(function(err, users){
+            //res.send(users); 
+            var extract=users.filter(i=>i['login']==user['login']).length;
+            console.log(extract);console.log(!extract);
+            if (!extract){
+                client.db("users1").collection("users").insertOne(user, function(err, result){                  
+                    if(err) return res.status(400).send();
+                    res.send(user);
+                    client.close();
+                });                
+            }
             client.close();
         });
-    });
+
+    });*/
 });
    
 app.delete("/api/users/:id", function(req, res){

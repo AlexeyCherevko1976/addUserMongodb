@@ -13,11 +13,11 @@
         <input type="hidden" name="id" value="0" />
         <div class="form-group">
             <label for="login">Логин:</label>
-            <input class="form-control" name="login" />
+            <input class="form-control" name="login" value="login1" />
         </div>
         <div class="form-group">
             <label for="password">Пароль:</label>
-            <input class="form-control" name="password" />
+            <input class="form-control" name="password" value='123'/>
         </div>
         <div class="panel-body">
             <button type="submit" class="btn btn-sm btn-primary">Сохранить</button>
@@ -73,7 +73,8 @@
                     password: userPassword
                 }),
                 success: function (user) {
-                    reset();
+                    reset(); 
+                    console.log('user'); console.log(user); 
                     $("table tbody").append(row(user));
                 }
             })
